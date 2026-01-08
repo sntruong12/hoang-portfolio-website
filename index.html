@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./styles/reset.css">
-    </head>
-    <body>
-        
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <script src="./js/main.js" defer></script>
+    <title>{{replace me}}</title>
+</head>
+
+<body>
+    <!-- vertical nav bar -->
+    <nav>
+        <picture>
+            <!-- Mobile Image -->
+            <source media="(max-width: 600px)" srcset="./media/white-logo.svg">
+            <!-- Desktop Image -->
+            <source media="(min-width: 601px)" srcset="./media/white-logo.svg">
+            <!-- Fallback Image -->
+            <img aria-hidden="true" loading="lazy" decoding="async" src="./media/white-logo.svg" alt="hoang">
+        </picture>
+
+        <ul>
+            <li><a href="/work">work</a></li>
+            <li><a href="/about">about</a></li>
+        </ul>
+
+        <ul>
+            <li><a href="mailto:{{replace me}}">Email</a></li>
+            <li><a href="https://instagram.com/{{replace me}}">Instagram</a></li>
+        </ul>
+    </nav>
+
+    <!-- project carousel -->
+    <section>
+        <!-- dynamically generate html here for the 7 projects -->
+
+    </section>
+
+</body>
+
 </html>
