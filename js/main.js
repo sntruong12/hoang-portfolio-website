@@ -164,7 +164,8 @@ const projects = [
 
 // render the project carousel
 const renderProjectCarousel = () => {
-    const container = document.getElementById("project-carousel");
+    const pjSection = document.getElementById(HTMLIDs.pc);
+    const aSection = document.getElementById(HTMLIDs.about)
 
     const html = projects.map((project) => `
         <picture>
@@ -177,12 +178,13 @@ const renderProjectCarousel = () => {
         </picture>
     `).join("");
 
-    container.innerHTML = html;
-    removeHiddenAttr(container)
-    setHiddenAttr()
+    pjSection.innerHTML = html;
+    removeHiddenAttr(pjSection)
+    setHiddenAttr(aSection)
+    console.log("rendered work==")
 }
 
-// event listener to show about
+// render the about content
 const renderAbout = () => {
     const html = `
     <h1>Hoang Truong</h1>
@@ -212,20 +214,6 @@ const renderAbout = () => {
 }
 
 /*
-    ===============
-    Event Listeners
-    ===============
-*/
-
-// run project carousel render after page loads
-document.addEventListener("DOMContentLoaded", renderProjectCarousel)
-
-// click event on about in left nav
-document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
-
-
-
-/*
     =======
     Helpers
     =======
@@ -237,3 +225,16 @@ const removeHiddenAttr = (element) => {
 const setHiddenAttr = (element) => {
     element.setAttribute("hidden", "true")
 }
+
+/*
+    ===============
+    Event Listeners
+    ===============
+*/
+
+// run project carousel render after page loads
+document.addEventListener("DOMContentLoaded", renderProjectCarousel)
+
+// click events for nav bar li
+document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjectCarousel)
+document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
