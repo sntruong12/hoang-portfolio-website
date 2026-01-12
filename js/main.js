@@ -2,13 +2,51 @@
 
 console.log("it's alive love frankenstein")
 
+/*
+    =========
+    CONSTANTS
+    =========
+*/
+
+// general data
+const meta = {
+    first: "Hoang",
+    last: "Truong",
+    about: {
+        description: "Multidisciplinary visual designer with a specialty in brand, illustration and motion",
+        clients: ["google", "ibm", "zillow", "youtube", "new balance"],
+        experience: [
+            {
+                roleAndCmpy: "senior designer - hook",
+                timePeriod: "january 2024 - present"
+            },
+            {
+                roleAndCmpy: "freelance",
+                timePeriod: "july 2018 - december 2023"
+            },
+            {
+                roleAndCmpy: "communication designer - mother la",
+                timePeriod: "october 2018 - july 2018"
+            },
+            {
+                roleAndCmpy: "motion designer – hyfn",
+                timePeriod: "february 2017 – october 2017"
+            },
+            {
+                roleAndCmpy: "designer - grip",
+                timePeriod: "july 2016 - january 2017"
+            },
+        ]
+    }
+}
+
 // id values used for all html element
 const HTMLIDs = {
     nav: {
         works: "nav-works",
         about: "nav-about"
     },
-    pc: "project-carousel",
+    projs: "projects",
     about: "about"
 }
 
@@ -158,20 +196,19 @@ const projects = [
 
 /*
     ================
-    Render Functions
+    RENDER FUNCTIONS
     ================
 */
 
-// render the project carousel
-const renderProjectCarousel = () => {
-    const pjSection = document.getElementById(HTMLIDs.pc);
+// render the projects
+const renderProjects = () => {
+    const pSection = document.getElementById(HTMLIDs.projs);
     const aSection = document.getElementById(HTMLIDs.about)
 
     // don't run logic if it's already hidden
-    if (isVisible(pjSection)) {
+    if (isVisible(pSection)) {
         return
     }
-
 
     const html = projects.map((project) => `
         <picture>
@@ -184,15 +221,20 @@ const renderProjectCarousel = () => {
         </picture>
     `).join("");
 
-    pjSection.innerHTML = html;
-    removeHiddenAttr(pjSection)
+    // set html
+    pSection.innerHTML = html;
+
+    // make visible
+    removeHiddenAttr(pSection)
+
+    // hide about
     setHiddenAttr(aSection)
     console.log("rendered work==")
 }
 
 // render the about content
 const renderAbout = () => {
-    const pjSection = document.getElementById(HTMLIDs.pc);
+    const pSection = document.getElementById(HTMLIDs.projs);
     const aSection = document.getElementById(HTMLIDs.about)
 
     // don't run logic if it's already hidden
@@ -201,27 +243,31 @@ const renderAbout = () => {
     }
 
     const html = `
-    <h1>Hoang Truong</h1>
-    <p>Multidisciplinary visual designer with a specialty in brand, illustration and motion</p>
-    <p>SELECT CLIENTS<br>GOOGLE<br>IBM<br>ZILLOW<br>YOUTUBE<br>NEW BALANCE</p>
+    <h1>${meta.first + " " + meta.last}</h1>
+    <p>${meta.about.description}</p>
+    <p>SELECT CLIENTS${"<br>" + meta.about.clients.join("<br>") + "<br>"}</p>
     <p>WORK EXPERIENCE<br>
-    SENIOR DESIGNER – HOOK<br>
-    JANUARY 2024 - PRESENT<br>
-    FREELANCE<br>
-    JULY 2018 - DEC 2023<br>
-    COMMUNICATION DESIGNER - MOTHER LA<br>
-    OCT 2018 - JULY 2018<br>
-    MOTION DESIGNER – HYFN<br>
-    FEB 2017 – OCT 2017<br>
-    DESIGNER - GRIP<br>
-    JULY 2016 - JAN 2017</p>
+    ${meta.about.experience.map(e => {
+        return `${e.roleAndCmpy}<br>
+                ${e.timePeriod}<br>`
+    })
+            .join("")
+        }
     `
-
+    // set html
     aSection.innerHTML = html
-    removeHiddenAttr(aSection)
-    setHiddenAttr(pjSection)
 
+    // make visible
+    removeHiddenAttr(aSection)
+
+    // hide projects
+    setHiddenAttr(pSection)
     console.log("rendered about")
+}
+
+// render selected project
+const renderSelectedProject = () => {
+
 }
 
 /*
@@ -247,13 +293,13 @@ const isVisible = (element) => {
 
 /*
     ===============
-    Event Listeners
+    EVENT LISTENERS
     ===============
 */
 
 // on page load
-document.addEventListener("DOMContentLoaded", renderProjectCarousel)
+document.addEventListener("DOMContentLoaded", renderProjects)
 
 // nav bar
-document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjectCarousel)
+document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjects)
 document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
