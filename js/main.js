@@ -271,9 +271,9 @@ const renderSelectedProject = () => {
 }
 
 /*
-    =======
-    Helpers
-    =======
+    ================
+    HELPER FUNCTIONS
+    ================
 */
 
 const removeHiddenAttr = (element) => {
