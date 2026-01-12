@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <!-- vertical nav bar -->
+    <!-- vertical nav bar on left -->
     <nav>
         <picture>
             <!-- Mobile Image -->
@@ -23,8 +23,11 @@
         </picture>
 
         <ul>
-            <li><a href="/work">work</a></li>
-            <li><a href="/about">about</a></li>
+            <!-- set up on click events to rerender dom -->
+            <li><a href="#">work</a></li>
+
+            <!--  -->
+            <li id="nav-about">about</li>
         </ul>
 
         <ul>
@@ -33,9 +36,20 @@
         </ul>
     </nav>
 
+    <!-- eye logo centered and fixed at top-->
+    <picture>
+        <source srcset="./media/eye-logo.jpg">
+        <!-- Fallback Image -->
+        <img aria-hidden="true" loading="lazy" decoding="async" src="./media/eye-logo.jpg" alt="hoang" width="28px"
+            height="28px">
+    </picture>
+
     <!-- project carousel -->
-    <section>
+    <section id="project-carousel">
         <!-- dynamically generate html here for the 7 projects -->
+    </section>
+
+    <section id="about" hidden="true">
 
     </section>
 
