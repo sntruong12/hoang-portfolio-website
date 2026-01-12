@@ -167,6 +167,12 @@ const renderProjectCarousel = () => {
     const pjSection = document.getElementById(HTMLIDs.pc);
     const aSection = document.getElementById(HTMLIDs.about)
 
+    // don't run logic if it's already hidden
+    if (isVisible(pjSection)) {
+        return
+    }
+
+
     const html = projects.map((project) => `
         <picture>
             <!-- Mobile Image -->
@@ -186,6 +192,14 @@ const renderProjectCarousel = () => {
 
 // render the about content
 const renderAbout = () => {
+    const pjSection = document.getElementById(HTMLIDs.pc);
+    const aSection = document.getElementById(HTMLIDs.about)
+
+    // don't run logic if it's already hidden
+    if (isVisible(aSection)) {
+        return
+    }
+
     const html = `
     <h1>Hoang Truong</h1>
     <p>Multidisciplinary visual designer with a specialty in brand, illustration and motion</p>
@@ -203,12 +217,9 @@ const renderAbout = () => {
     JULY 2016 - JAN 2017</p>
     `
 
-    let aboutHTML = document.getElementById("about")
-    aboutHTML.innerHTML = html
-    removeHiddenAttr(aboutHTML)
-
-    // hide project carousel
-    setHiddenAttr(document.getElementById(HTMLIDs.pc))
+    aSection.innerHTML = html
+    removeHiddenAttr(aSection)
+    setHiddenAttr(pjSection)
 
     console.log("rendered about")
 }
@@ -218,6 +229,7 @@ const renderAbout = () => {
     Helpers
     =======
 */
+
 const removeHiddenAttr = (element) => {
     element.removeAttribute("hidden")
 }
@@ -226,15 +238,22 @@ const setHiddenAttr = (element) => {
     element.setAttribute("hidden", "true")
 }
 
+const isVisible = (element) => {
+    if (!!element.getAttribute("hidden")) {
+        return false
+    }
+    return true
+}
+
 /*
     ===============
     Event Listeners
     ===============
 */
 
-// run project carousel render after page loads
+// on page load
 document.addEventListener("DOMContentLoaded", renderProjectCarousel)
 
-// click events for nav bar li
+// nav bar
 document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjectCarousel)
 document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
