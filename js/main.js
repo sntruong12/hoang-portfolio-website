@@ -47,7 +47,8 @@ const HTMLIDs = {
         about: "nav-about"
     },
     projs: "projects",
-    about: "about"
+    about: "about",
+    selectedproj: "selected-project"
 }
 
 // array of project data
@@ -194,6 +195,11 @@ const projects = [
     },
 ]
 
+// dom elements for sections
+const pSection = document.getElementById(HTMLIDs.projs)
+const aSection = document.getElementById(HTMLIDs.about)
+const spSection = document.getElementById(HTMLIDs.selectedproj)
+
 /*
     ================
     RENDER FUNCTIONS
@@ -202,16 +208,13 @@ const projects = [
 
 // render the projects
 const renderProjects = () => {
-    const pSection = document.getElementById(HTMLIDs.projs);
-    const aSection = document.getElementById(HTMLIDs.about)
-
     // don't run logic if it's already hidden
     if (isVisible(pSection)) {
         return
     }
 
     const html = projects.map((project) => `
-        <picture>
+        <picture id="project-${project.id}">
             <!-- Mobile Image -->
             <source media="(max-width: 600px)" srcset="./media/project-${project.id}/featured.svg">
             <!-- Desktop Image -->
@@ -227,16 +230,13 @@ const renderProjects = () => {
     // make visible
     removeHiddenAttr(pSection)
 
-    // hide about
-    setHiddenAttr(aSection)
-    console.log("rendered work==")
+    // hide other sections
+    hideOtherSections([aSection, spSection])
+    console.log("rendered projects====")
 }
 
 // render the about content
 const renderAbout = () => {
-    const pSection = document.getElementById(HTMLIDs.projs);
-    const aSection = document.getElementById(HTMLIDs.about)
-
     // don't run logic if it's already hidden
     if (isVisible(aSection)) {
         return
@@ -260,17 +260,13 @@ const renderAbout = () => {
     // make visible
     removeHiddenAttr(aSection)
 
-    // hide projects
-    setHiddenAttr(pSection)
+    // hide projects & selected project
+    hideOtherSections([pSection, spSection])
     console.log("rendered about")
 }
 
 // render selected project
 const renderSelectedProject = (projectId) => {
-    const pSection = document.getElementById(HTMLIDs.projs);
-    const aSection = document.getElementById(HTMLIDs.about);
-    const spSection = document.getElementById("selected-project");
-
     // find the project by id
     const project = projects.find(p => p.id === projectId);
 
@@ -311,8 +307,8 @@ const renderSelectedProject = (projectId) => {
     removeHiddenAttr(spSection);
 
     // hide other sections
-    setHiddenAttr(pSection);
-    setHiddenAttr(aSection);
+    hideOtherSections([pSection, aSection])
+
     console.log("rendered selected project");
 }
 
@@ -337,6 +333,10 @@ const isVisible = (element) => {
     return true
 }
 
+const hideOtherSections = (elements) => {
+    elements.forEach(e => { setHiddenAttr(e) })
+}
+
 /*
     ===============
     EVENT LISTENERS
@@ -349,3 +349,12 @@ document.addEventListener("DOMContentLoaded", renderProjects)
 // nav bar
 document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjects)
 document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
+
+// project selection
+document.getElementById(HTMLIDs.projs).addEventListener("click", (e) => {
+    const picture = e.target.closest('picture[id^="project-"]');
+    if (picture) {
+        const projectId = parseInt(picture.id.replace("project-", ""));
+        renderSelectedProject(projectId);
+    }
+})
