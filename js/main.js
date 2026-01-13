@@ -49,6 +49,7 @@ const HTMLIDs = {
     projs: "projects",
     about: "about",
     selectedProj: "selected-project",
+    centeredProj: "centered-project",
     selectedProjBackButton: "sp-back-button",
     imageNav: {
         prev: "sp-img-prev",
@@ -205,8 +206,12 @@ const projects = [
 const pSection = document.getElementById(HTMLIDs.projs)
 const aSection = document.getElementById(HTMLIDs.about)
 const spSection = document.getElementById(HTMLIDs.selectedProj)
+const cpSection = document.getElementById(HTMLIDs.centeredProj)
 
-// state for selected project image navigation
+/* 
+    state for current centered project, 
+    selected project image navigation,
+*/
 const state = {
     currentImageIndex: 0,
     totalImages: 0
@@ -241,6 +246,7 @@ const renderProjects = () => {
 
     // make visible
     removeHiddenAttr(pSection)
+    removeHiddenAttr(cpSection)
 
     // hide other sections
     hideOtherSections([aSection, spSection])
@@ -273,7 +279,7 @@ const renderAbout = () => {
     removeHiddenAttr(aSection)
 
     // hide projects & selected project
-    hideOtherSections([pSection, spSection])
+    hideOtherSections([pSection, spSection, cpSection])
     console.log("rendered about")
 }
 
@@ -329,9 +335,24 @@ const renderSelectedProject = (projectId) => {
     removeHiddenAttr(spSection);
 
     // hide other sections
-    hideOtherSections([pSection, aSection])
+    hideOtherSections([pSection, aSection, cpSection])
 
     console.log("rendered selected project");
+}
+
+const renderCenteredProjectNumber = (projectID) => {
+    let pid = ""
+    if (projectID < 10) {
+        pid = `0${pid}`
+    } else {
+        pid = projectID
+    }
+
+    const html = `
+        <p>${pid}</p>
+    `
+
+    cpSection.innerHTML = html
 }
 
 /*

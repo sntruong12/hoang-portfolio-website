@@ -1,6 +1,11 @@
 /* global css */
 
 * {
-    background-color: black;
-    color: white;
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+/* grid system */
+div.grid-container {
+    display: grid;
 }
