@@ -1,11 +1,13 @@
 /* reset default css */
 /* https://piccalil.li/blog/a-more-modern-css-reset/ */
 
-/* Box sizing rules */
+/* Box sizing rules, margin, and padding reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Prevent font size inflation */
