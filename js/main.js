@@ -48,7 +48,8 @@ const HTMLIDs = {
     },
     projs: "projects",
     about: "about",
-    selectedproj: "selected-project"
+    selectedProj: "selected-project",
+    selectedProjBackButton: "sp-back-button"
 }
 
 // array of project data
@@ -198,7 +199,7 @@ const projects = [
 // dom elements for sections
 const pSection = document.getElementById(HTMLIDs.projs)
 const aSection = document.getElementById(HTMLIDs.about)
-const spSection = document.getElementById(HTMLIDs.selectedproj)
+const spSection = document.getElementById(HTMLIDs.selectedProj)
 
 /*
     ================
@@ -290,7 +291,7 @@ const renderSelectedProject = (projectId) => {
     }).join("");
 
     const html = `
-        <p>&larr; back</p>
+        <p id="${HTMLIDs.selectedProjBackButton}">&larr; back</p>
         <h1>${project.title}</h1>
         ${picturesHtml}
         <p>client ${project.client}</p>
@@ -350,11 +351,20 @@ document.addEventListener("DOMContentLoaded", renderProjects)
 document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjects)
 document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
 
-// project selection
-document.getElementById(HTMLIDs.projs).addEventListener("click", (e) => {
+// render selected project
+pSection.addEventListener("click", (e) => {
     const picture = e.target.closest('picture[id^="project-"]');
     if (picture) {
         const projectId = parseInt(picture.id.replace("project-", ""));
         renderSelectedProject(projectId);
     }
 })
+
+// selected project back button
+spSection.addEventListener("click", (e) => {
+    console.log("click event for selected project is happening")
+    if (e.target.id === HTMLIDs.selectedProjBackButton) {
+        renderProjects();
+    }
+})
+
