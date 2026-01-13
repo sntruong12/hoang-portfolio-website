@@ -266,8 +266,54 @@ const renderAbout = () => {
 }
 
 // render selected project
-const renderSelectedProject = () => {
+const renderSelectedProject = (projectId) => {
+    const pSection = document.getElementById(HTMLIDs.projs);
+    const aSection = document.getElementById(HTMLIDs.about);
+    const spSection = document.getElementById("selected-project");
 
+    // find the project by id
+    const project = projects.find(p => p.id === projectId);
+
+    if (!project) {
+        console.error("Project not found");
+        return;
+    }
+
+    // generate picture tags for all images in the project
+    const picturesHtml = Array.from({ length: project.media.count }, (_, index) => {
+        const imageNum = index + 1;
+        return `
+        <picture>
+            <!-- Mobile Image -->
+            <source media="(max-width: 600px)" srcset="./media/project-${project.id}/${imageNum}.svg">
+            <!-- Desktop Image -->
+            <source media="(min-width: 601px)" srcset="./media/project-${project.id}/${imageNum}.svg">
+            <!-- Fallback Image -->
+            <img aria-hidden="true" loading="lazy" decoding="async" src="./media/project-${project.id}/${imageNum}.svg" alt="${project.title} image ${imageNum}">
+        </picture>`;
+    }).join("");
+
+    const html = `
+        <p>&larr; back</p>
+        <h1>${project.title}</h1>
+        ${picturesHtml}
+        <p>client ${project.client}</p>
+        <p>project ${project.pType}</p>
+        <p>role ${project.role}</p>
+        <p>${project.description}</p>
+        <p>&uarr; 1 &darr;</p>
+    `;
+
+    // set html
+    spSection.innerHTML = html;
+
+    // make visible
+    removeHiddenAttr(spSection);
+
+    // hide other sections
+    setHiddenAttr(pSection);
+    setHiddenAttr(aSection);
+    console.log("rendered selected project");
 }
 
 /*
