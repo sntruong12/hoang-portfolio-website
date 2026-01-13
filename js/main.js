@@ -49,7 +49,12 @@ const HTMLIDs = {
     projs: "projects",
     about: "about",
     selectedProj: "selected-project",
-    selectedProjBackButton: "sp-back-button"
+    selectedProjBackButton: "sp-back-button",
+    imageNav: {
+        prev: "sp-img-prev",
+        next: "sp-img-next",
+        counter: "sp-img-counter"
+    }
 }
 
 // array of project data
@@ -201,6 +206,12 @@ const pSection = document.getElementById(HTMLIDs.projs)
 const aSection = document.getElementById(HTMLIDs.about)
 const spSection = document.getElementById(HTMLIDs.selectedProj)
 
+// state for selected project image navigation
+const state = {
+    currentImageIndex: 0,
+    totalImages: 0
+}
+
 /*
     ================
     RENDER FUNCTIONS
@@ -276,11 +287,17 @@ const renderSelectedProject = (projectId) => {
         return;
     }
 
+    // reset state for image navigation
+    state.currentImageIndex = 0;
+    state.totalImages = project.media.count;
+
     // generate picture tags for all images in the project
+    // first image is visible, others are hidden
     const picturesHtml = Array.from({ length: project.media.count }, (_, index) => {
         const imageNum = index + 1;
+        const hiddenAttr = index === 0 ? "" : "hidden";
         return `
-        <picture>
+        <picture data-index="${index}" ${hiddenAttr}>
             <!-- Mobile Image -->
             <source media="(max-width: 600px)" srcset="./media/project-${project.id}/${imageNum}.svg">
             <!-- Desktop Image -->
@@ -298,7 +315,11 @@ const renderSelectedProject = (projectId) => {
         <p>project ${project.pType}</p>
         <p>role ${project.role}</p>
         <p>${project.description}</p>
-        <p>&uarr; 1 &darr;</p>
+        <p>
+            <span id="${HTMLIDs.imageNav.prev}">&uarr;</span>
+            <span id="${HTMLIDs.imageNav.counter}">1</span>
+            <span id="${HTMLIDs.imageNav.next}">&darr;</span>
+        </p>
     `;
 
     // set html
@@ -360,11 +381,39 @@ pSection.addEventListener("click", (e) => {
     }
 })
 
-// selected project back button
+// selected project interactions
 spSection.addEventListener("click", (e) => {
-    console.log("click event for selected project is happening")
+    // back button
     if (e.target.id === HTMLIDs.selectedProjBackButton) {
         renderProjects();
+    }
+
+    // previous image (up arrow)
+    if (e.target.id === HTMLIDs.imageNav.prev) {
+        if (state.currentImageIndex > 0) {
+            // hide current image
+            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = true;
+            // update index
+            state.currentImageIndex--;
+            // show new image
+            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = false;
+            // update counter
+            document.getElementById(HTMLIDs.imageNav.counter).textContent = state.currentImageIndex + 1;
+        }
+    }
+
+    // next image (down arrow)
+    if (e.target.id === HTMLIDs.imageNav.next) {
+        if (state.currentImageIndex < state.totalImages - 1) {
+            // hide current image
+            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = true;
+            // update index
+            state.currentImageIndex++;
+            // show new image
+            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = false;
+            // update counter
+            document.getElementById(HTMLIDs.imageNav.counter).textContent = state.currentImageIndex + 1;
+        }
     }
 })
 
