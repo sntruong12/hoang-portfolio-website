@@ -317,6 +317,7 @@ const renderSelectedProject = (projectId) => {
         <p id="${HTMLIDs.selectedProjBackButton}">&larr; back</p>
         <h1>${project.title}</h1>
         ${picturesHtml}
+        ${!!project.agency ? "<p>agency " + project.agency + "</p>" : ""}
         <p>client ${project.client}</p>
         <p>project ${project.pType}</p>
         <p>role ${project.role}</p>
