@@ -49,7 +49,7 @@ const HTMLIDs = {
     projs: "projects",
     about: "about",
     selectedProj: "selected-project",
-    centeredProj: "centered-project",
+    centeredProj: "current-centered-project",
     selectedProjBackButton: "sp-back-button",
     imageNav: {
         prev: "sp-img-prev",
@@ -206,7 +206,7 @@ const projects = [
 const pSection = document.getElementById(HTMLIDs.projs)
 const aSection = document.getElementById(HTMLIDs.about)
 const spSection = document.getElementById(HTMLIDs.selectedProj)
-const cpSection = document.getElementById(HTMLIDs.centeredProj)
+const ccpSection = document.getElementById(HTMLIDs.centeredProj)
 
 /* 
     state for current centered project, 
@@ -246,7 +246,7 @@ const renderProjects = () => {
 
     // make visible
     removeHiddenAttr(pSection)
-    removeHiddenAttr(cpSection)
+    removeHiddenAttr(ccpSection)
 
     // hide other sections
     hideOtherSections([aSection, spSection])
@@ -279,7 +279,7 @@ const renderAbout = () => {
     removeHiddenAttr(aSection)
 
     // hide projects & selected project
-    hideOtherSections([pSection, spSection, cpSection])
+    hideOtherSections([pSection, spSection, ccpSection])
     console.log("rendered about")
 }
 
@@ -335,7 +335,7 @@ const renderSelectedProject = (projectId) => {
     removeHiddenAttr(spSection);
 
     // hide other sections
-    hideOtherSections([pSection, aSection, cpSection])
+    hideOtherSections([pSection, aSection, ccpSection])
 
     console.log("rendered selected project");
 }
@@ -343,7 +343,7 @@ const renderSelectedProject = (projectId) => {
 const renderCenteredProjectNumber = (projectID) => {
     let pid = ""
     if (projectID < 10) {
-        pid = `0${pid}`
+        pid = `0${projectID}`
     } else {
         pid = projectID
     }
@@ -352,7 +352,7 @@ const renderCenteredProjectNumber = (projectID) => {
         <p>${pid}</p>
     `
 
-    cpSection.innerHTML = html
+    ccpSection.innerHTML = html
 }
 
 /*
@@ -381,16 +381,49 @@ const hideOtherSections = (elements) => {
 }
 
 /*
+    =====================
+    INTERSECTION OBSERVER
+    =====================
+*/
+
+// observer to detect when a project is centered in the viewport
+const centeredProjectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const projectId = parseInt(entry.target.id.replace("project-", ""));
+            renderCenteredProjectNumber(projectId);
+        }
+    });
+}, {
+    root: null, // viewport
+    rootMargin: "-50% 0px -50% 0px", // only trigger when element crosses the center
+    threshold: 0
+});
+
+// function to observe all project elements
+const observeProjects = () => {
+    console.log("we are observing projects")
+    const projectElements = pSection.querySelectorAll('picture[id^="project-"]');
+    projectElements.forEach(el => centeredProjectObserver.observe(el));
+};
+
+/*
     ===============
     EVENT LISTENERS
     ===============
 */
 
 // on page load
-document.addEventListener("DOMContentLoaded", renderProjects)
+document.addEventListener("DOMContentLoaded", () => {
+    renderProjects();
+    observeProjects();
+})
 
 // nav bar
-document.getElementById(HTMLIDs.nav.works).addEventListener("click", renderProjects)
+document.getElementById(HTMLIDs.nav.works).addEventListener("click", () => {
+    renderProjects();
+    observeProjects();
+})
 document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
 
 // render selected project
@@ -407,6 +440,7 @@ spSection.addEventListener("click", (e) => {
     // back button
     if (e.target.id === HTMLIDs.selectedProjBackButton) {
         renderProjects();
+        observeProjects();
     }
 
     // previous image (up arrow)
