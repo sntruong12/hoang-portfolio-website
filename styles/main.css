@@ -5,6 +5,14 @@
     color: #FFFFFF;
 }
 
+/* nav bar */
+nav.side {
+    height: 100%;
+    width: auto;
+    position: fixed;
+    z-index: 1;
+}
+
 /* grid system */
 div.grid-container {
     display: grid;
