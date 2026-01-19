@@ -13,7 +13,43 @@ nav.side {
     z-index: 1;
 }
 
-/* grid system */
-div.grid-container {
+/* nav bar on mobile */
+/* https://www.w3schools.com/howto/howto_js_sidenav.asp */
+
+/* about styles */
+.about {
     display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+        "header"
+        "main"
+        "aside1"
+        "aside2";
+}
+
+.about> :nth-child(1) {
+    grid-area: header;
+}
+
+.about> :nth-child(2) {
+    grid-area: main;
+}
+
+.about> :nth-child(3) {
+    grid-area: aside1;
+}
+
+.about> :nth-child(4) {
+    grid-area: aside2;
+}
+
+/* about desktop */
+@media (min-width: 768px) {
+    .about {
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-areas:
+            "header header header"
+            "main   aside1 aside2";
+    }
 }
