@@ -6,26 +6,46 @@
 }
 
 /* nav bar */
-nav.side {
+.nav-side {
     height: 100%;
-    width: auto;
+    overflow-x: hidden;
     position: fixed;
+    transition: 0.5s;
+    width: auto;
     z-index: 1;
 }
 
-/* nav bar on mobile */
-/* https://www.w3schools.com/howto/howto_js_sidenav.asp */
+/* nav close button */
+.nav-close {
+    font-size: 36px;
+    margin-left: 50px;
+    position: absolute;
+    right: 25px;
+    text-decoration: none;
+    top: 0;
+}
+
+/* nav bar tablet/desktop */
+@media (min-width: 768px) {
+    .nav-side {
+        height: 100%;
+        overflow-x: hidden;
+        position: fixed;
+        width: auto;
+        z-index: 1;
+    }
+}
 
 /* about styles */
 .about {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: auto auto;
     grid-template-areas:
         "header"
         "main"
         "aside1"
         "aside2";
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
 }
 
 .about> :nth-child(1) {
@@ -44,12 +64,12 @@ nav.side {
     grid-area: aside2;
 }
 
-/* about desktop */
+/* about tablet/desktop */
 @media (min-width: 768px) {
     .about {
-        grid-template-columns: 2fr 1fr 1fr;
         grid-template-areas:
             "header header header"
             "main   aside1 aside2";
+        grid-template-columns: 2fr 1fr 1fr;
     }
 }

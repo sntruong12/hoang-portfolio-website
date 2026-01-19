@@ -12,12 +12,14 @@
 
 <body>
     <!-- vertical nav bar on left -->
-    <nav class="side">
+    <span class="nav-open" id="nav-open">==========open nav==========</span>
+    <nav class="nav-side" id="nav-side">
+        <a href="javascript:void(0)" class="nav-close" id="nav-close">&times;</a>
         <picture>
             <!-- Mobile Image -->
-            <source media="(max-width: 600px)" srcset="./media/white-logo.svg">
+            <source media="(max-width: 767px)" srcset="./media/white-logo.svg">
             <!-- Desktop Image -->
-            <source media="(min-width: 601px)" srcset="./media/white-logo.svg">
+            <source media="(min-width: 768px)" srcset="./media/white-logo.svg">
             <!-- Fallback Image -->
             <img aria-hidden="true" loading="lazy" decoding="async" src="./media/white-logo.svg" alt="hoang">
         </picture>

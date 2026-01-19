@@ -43,6 +43,9 @@ const meta = {
 // id values used for all html element
 const HTMLIDs = {
     nav: {
+        id: "nav-side",
+        open: "nav-open",
+        close: "nav-close",
         works: "nav-works",
         about: "nav-about"
     },
@@ -207,6 +210,9 @@ const pSection = document.getElementById(HTMLIDs.projs)
 const aSection = document.getElementById(HTMLIDs.about)
 const spSection = document.getElementById(HTMLIDs.selectedProj)
 const ccpSection = document.getElementById(HTMLIDs.centeredProj)
+const sideNav = document.getElementById(HTMLIDs.nav.id)
+const sideNavOpenButton = document.getElementById(HTMLIDs.nav.open)
+const sideNavCloseButton = document.getElementById(HTMLIDs.nav.close)
 
 /* 
     state for current centered project, 
@@ -233,9 +239,9 @@ const renderProjects = () => {
     const html = projects.map((project) => `
         <picture id="project-${project.id}">
             <!-- Mobile Image -->
-            <source media="(max-width: 600px)" srcset="./media/project-${project.id}/featured.svg">
+            <source media="(max-width: 767px)" srcset="./media/project-${project.id}/featured.svg">
             <!-- Desktop Image -->
-            <source media="(min-width: 601px)" srcset="./media/project-${project.id}/featured.svg">
+            <source media="(min-width: 768px)" srcset="./media/project-${project.id}/featured.svg">
             <!-- Fallback Image -->
             <img aria-hidden="true" loading="lazy" decoding="async" src="./media/project-${project.id}/featured.svg" alt="${project.title}">
         </picture>
@@ -305,9 +311,9 @@ const renderSelectedProject = (projectId) => {
         return `
         <picture data-index="${index}" ${hiddenAttr}>
             <!-- Mobile Image -->
-            <source media="(max-width: 600px)" srcset="./media/project-${project.id}/${imageNum}.svg">
+            <source media="(max-width: 767px)" srcset="./media/project-${project.id}/${imageNum}.svg">
             <!-- Desktop Image -->
-            <source media="(min-width: 601px)" srcset="./media/project-${project.id}/${imageNum}.svg">
+            <source media="(min-width: 768px)" srcset="./media/project-${project.id}/${imageNum}.svg">
             <!-- Fallback Image -->
             <img aria-hidden="true" loading="lazy" decoding="async" src="./media/project-${project.id}/${imageNum}.svg" alt="${project.title} image ${imageNum}">
         </picture>`;
@@ -354,6 +360,16 @@ const renderCenteredProjectNumber = (projectID) => {
     `
 
     ccpSection.innerHTML = html
+}
+
+const openNav = () => {
+    sideNav.style.width = "auto";
+    console.log("opening nav")
+}
+
+const closeNav = () => {
+    sideNav.style.width = "0";
+    console.log("closing nav")
 }
 
 /*
@@ -473,3 +489,5 @@ spSection.addEventListener("click", (e) => {
     }
 })
 
+sideNavCloseButton.addEventListener("click", closeNav)
+sideNavOpenButton.addEventListener("click", openNav)
