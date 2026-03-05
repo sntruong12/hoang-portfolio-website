@@ -213,6 +213,8 @@ const ccpSection = document.getElementById(HTMLIDs.centeredProj)
 const sideNav = document.getElementById(HTMLIDs.nav.id)
 const sideNavOpenButton = document.getElementById(HTMLIDs.nav.open)
 const sideNavCloseButton = document.getElementById(HTMLIDs.nav.close)
+const sideNavItemWorks = document.getElementById(HTMLIDs.nav.works)
+const sideNavItemAbout = document.getElementById(HTMLIDs.nav.about)
 
 /* 
     state for current centered project, 
@@ -231,8 +233,8 @@ const state = {
 
 // render the projects
 const renderProjects = () => {
-    // don't run logic if it's already hidden
-    if (elementIsVisible(pSection)) {
+    // validate render
+    if (shouldNotRender(pSection)) {
         return
     }
 
@@ -260,8 +262,8 @@ const renderProjects = () => {
 
 // render the about content
 const renderAbout = () => {
-    // don't run logic if it's already hidden
-    if (elementIsVisible(aSection)) {
+    // validate render
+    if (shouldNotRender(aSection)) {
         return
     }
 
@@ -377,27 +379,36 @@ const closeNav = () => {
     ================
 */
 
-const removeHiddenAttr = (element) => {
-    element.removeAttribute("hidden")
-}
-
-const setHiddenAttr = (element) => {
-    element.setAttribute("hidden", "true")
-}
-
 const elementIsVisible = (element) => {
-    if (!!element.getAttribute("hidden")) {
+    if (element.classList.contains("section-hidden")) {
         return false
     }
     return true
 }
 
+const elementHasChildren = (el) => {
+    return el.hasChildNodes()
+}
+
 const showSections = (elements) => {
-    elements.forEach(e => { removeHiddenAttr(e) })
+    elements.forEach(e => { e.classList.remove("section-hidden") })
 }
 
 const hideOtherSections = (elements) => {
-    elements.forEach(e => { setHiddenAttr(e) })
+    elements.forEach(e => { e.classList.add("section-hidden") })
+}
+
+const shouldNotRender = (el) => {
+    // don't run logic if it's already visible or if inner html has been set
+    let check = elementIsVisible(el)
+    let secondCheck = elementHasChildren(el)
+
+    if (check && secondCheck) {
+        console.log("element already is visible and inner html is already set")
+        return true
+    }
+
+    return false
 }
 
 /*
@@ -433,18 +444,22 @@ const observeProjects = () => {
     ===============
 */
 
-// on page load
+// on initial page load
 document.addEventListener("DOMContentLoaded", () => {
+    hideOtherSections([aSection, spSection])
+
     renderProjects();
     observeProjects();
 })
 
 // nav bar
-document.getElementById(HTMLIDs.nav.works).addEventListener("click", () => {
+sideNavItemWorks.addEventListener("click", () => {
     renderProjects();
     observeProjects();
 })
-document.getElementById(HTMLIDs.nav.about).addEventListener("click", renderAbout)
+sideNavItemAbout.addEventListener("click", renderAbout)
+sideNavCloseButton.addEventListener("click", closeNav)
+sideNavOpenButton.addEventListener("click", openNav)
 
 // render selected project
 pSection.addEventListener("click", (e) => {
@@ -491,6 +506,3 @@ spSection.addEventListener("click", (e) => {
         }
     }
 })
-
-sideNavCloseButton.addEventListener("click", closeNav)
-sideNavOpenButton.addEventListener("click", openNav)
