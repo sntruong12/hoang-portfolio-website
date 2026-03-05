@@ -32,13 +32,7 @@
 
 /* nav bar tablet/desktop */
 @media (min-width: 768px) {
-    .nav-side {
-        height: 100%;
-        overflow-x: hidden;
-        position: fixed;
-        width: auto;
-        z-index: 1;
-    }
+    .nav-side {}
 }
 
 /* about styles */
@@ -114,4 +108,12 @@
 /* hiding sections i.e. projects/selected projects/about */
 .section-hidden {
     display: none;
+}
+
+/* position el in bottom right of the view */
+.current-centered-project {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
 }
