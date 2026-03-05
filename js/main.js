@@ -232,7 +232,7 @@ const state = {
 // render the projects
 const renderProjects = () => {
     // don't run logic if it's already hidden
-    if (isVisible(pSection)) {
+    if (elementIsVisible(pSection)) {
         return
     }
 
@@ -251,8 +251,7 @@ const renderProjects = () => {
     pSection.innerHTML = html;
 
     // make visible
-    removeHiddenAttr(pSection)
-    removeHiddenAttr(ccpSection)
+    showSections([pSection, ccpSection])
 
     // hide other sections
     hideOtherSections([aSection, spSection])
@@ -262,7 +261,7 @@ const renderProjects = () => {
 // render the about content
 const renderAbout = () => {
     // don't run logic if it's already hidden
-    if (isVisible(aSection)) {
+    if (elementIsVisible(aSection)) {
         return
     }
 
@@ -282,7 +281,7 @@ const renderAbout = () => {
     aSection.innerHTML = html
 
     // make visible
-    removeHiddenAttr(aSection)
+    showSections([aSection])
 
     // hide projects & selected project
     hideOtherSections([pSection, spSection, ccpSection])
@@ -339,7 +338,7 @@ const renderSelectedProject = (projectId) => {
     spSection.innerHTML = html;
 
     // make visible
-    removeHiddenAttr(spSection);
+    showSections([spSection])
 
     // hide other sections
     hideOtherSections([pSection, aSection, ccpSection])
@@ -386,11 +385,15 @@ const setHiddenAttr = (element) => {
     element.setAttribute("hidden", "true")
 }
 
-const isVisible = (element) => {
+const elementIsVisible = (element) => {
     if (!!element.getAttribute("hidden")) {
         return false
     }
     return true
+}
+
+const showSections = (elements) => {
+    elements.forEach(e => { removeHiddenAttr(e) })
 }
 
 const hideOtherSections = (elements) => {
