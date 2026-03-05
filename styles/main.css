@@ -13,6 +13,11 @@
     transition: 0.5s;
     width: auto;
     z-index: 1;
+
+    /* space child elements in nav bar evenly */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* nav close button */
