@@ -11,55 +11,53 @@
 </head>
 
 <body>
+    <!-- eye logo centered and fixed at top-->
+    <picture class="eye-logo">
+        <source srcset="./media/eye-logo.jpg">
+        <!-- Fallback Image -->
+        <img aria-hidden="true" loading="lazy" decoding="async" src="./media/eye-logo.jpg" alt="hoang" width="28px"
+            height="28px">
+    </picture>
+
     <!-- vertical nav bar on left -->
-    <span class="nav-open" id="nav-open">==========open nav==========</span>
-    <div class="grid-container">
-        <nav class="nav-side" id="nav-side">
-            <a href="javascript:void(0)" class="nav-close" id="nav-close">&times;</a>
-            <picture>
-                <!-- Mobile Image -->
-                <source media="(max-width: 767px)" srcset="./media/white-logo.svg">
-                <!-- Desktop Image -->
-                <source media="(min-width: 768px)" srcset="./media/white-logo.svg">
-                <!-- Fallback Image -->
-                <img aria-hidden="true" loading="lazy" decoding="async" src="./media/white-logo.svg" alt="hoang">
-            </picture>
+    <!-- <span class="nav-open" id="nav-open">===open nav===</span> -->
+    <nav class="nav-side" id="nav-side">
+        <a href="javascript:void(0)" class="nav-close" id="nav-close">&times;</a>
+        <picture>
+            <!-- Mobile Image -->
+            <source media="(max-width: 767px)" srcset="./media/white-logo.svg">
+            <!-- Desktop Image -->
+            <source media="(min-width: 768px)" srcset="./media/white-logo.svg">
+            <!-- Fallback Image -->
+            <img aria-hidden="true" loading="lazy" decoding="async" src="./media/white-logo.svg" alt="hoang">
+        </picture>
 
-            <ul>
-                <li id="nav-works">work</li>
-                <li id="nav-about">about</li>
-            </ul>
+        <ul>
+            <li id="nav-works">work</li>
+            <li id="nav-about">about</li>
+        </ul>
 
-            <ul>
-                <li><a href="mailto:{{replace me}}">Email</a></li>
-                <li><a href="https://instagram.com/{{replace me}}">Instagram</a></li>
-            </ul>
-        </nav>
+        <ul>
+            <li><a href="mailto:{{replace me}}">Email</a></li>
+            <li><a href="https://instagram.com/{{replace me}}">Instagram</a></li>
+        </ul>
+    </nav>
 
-        <!-- projects, about, selected project -->
-        <main class="main-container">
-            <!-- eye logo centered and fixed at top-->
-            <picture>
-                <source srcset="./media/eye-logo.jpg">
-                <!-- Fallback Image -->
-                <img aria-hidden="true" loading="lazy" decoding="async" src="./media/eye-logo.jpg" alt="hoang"
-                    width="28px" height="28px">
-            </picture>
+    <!-- projects, about, selected project -->
+    <main class="main-container">
+        <!-- projects -->
+        <section class="projects" id="projects"></section>
 
-            <!-- projects -->
-            <section class="projects" id="projects"></section>
+        <!-- about content -->
+        <section class="about" id="about"></section>
 
-            <!-- about content -->
-            <section class="about" id="about"></section>
+        <!-- selected project -->
+        <section id="selected-project"></section>
 
-            <!-- selected project -->
-            <section id="selected-project"></section>
+    </main>
 
-        </main>
-
-        <!-- # for current centered project in viewport -->
-        <section class="current-centered-project" id="current-centered-project"></section>
-    </div>
+    <!-- # for current centered project in viewport -->
+    <section class="current-centered-project" id="current-centered-project"></section>
 </body>
 
 </html>

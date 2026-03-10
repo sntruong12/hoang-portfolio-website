@@ -95,8 +95,6 @@
 .projects picture {
     flex: 0 0 auto;
     scroll-snap-align: start;
-    /* adjust */
-    width: 300px;
 }
 
 .projects picture img {
@@ -116,4 +114,21 @@
     bottom: 0;
     right: 0;
     z-index: 1;
+}
+
+/* center eye logo */
+.eye-logo {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* layout for main element */
+.main-container {
+    height: 100vh;
+    width: 100vw;
+
+    display: grid;
+    place-items: center;
 }
