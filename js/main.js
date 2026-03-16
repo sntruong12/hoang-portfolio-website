@@ -1,6 +1,6 @@
 "use strict";
 
-console.log("it's alive love frankenstein")
+console.log("Created by Son @ https://truong.digital")
 
 /*
     =========
