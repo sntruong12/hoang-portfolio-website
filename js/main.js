@@ -426,16 +426,18 @@ const centeredProjectObserver = new IntersectionObserver((entries) => {
         }
     });
 }, {
-    root: null, // viewport
-    rootMargin: "-50% 0px -50% 0px", // only trigger when element crosses the center
-    threshold: 0
+    root: null,
+    rootMargin: "0px -50% 0px -50%", // only trigger when element crosses the center
+    threshold: [...Array(100).keys()].map(x => x / 100)
 });
 
 // function to observe all project elements
 const observeProjects = () => {
     console.log("we are observing projects")
     const projectElements = pSection.querySelectorAll('picture[id^="project-"]');
-    projectElements.forEach(el => centeredProjectObserver.observe(el));
+    projectElements.forEach(el => {
+        centeredProjectObserver.observe(el)
+    });
 };
 
 /*
