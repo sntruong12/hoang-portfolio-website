@@ -11,7 +11,7 @@
     overflow-x: hidden;
     position: fixed;
     transition: 0.5s;
-    width: auto;
+    width: calc(100vw / 12);
     z-index: 1;
 
     /* space child elements in nav bar evenly */
@@ -114,7 +114,15 @@
     bottom: 0;
     right: 0;
     z-index: 1;
+    background: transparent;
 }
+
+.current-centered-project p {
+    font-size: calc(100vw / 12);
+    background: transparent;
+}
+
+
 
 /* center eye logo */
 .eye-logo {
