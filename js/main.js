@@ -268,7 +268,7 @@ const renderAbout = () => {
     }
 
     const html = `
-    <h1>${meta.first + " " + meta.last}</h1>
+    <h1>${meta.first + "<br>" + meta.last}</h1>
     <p>${meta.about.description}</p>
     <p>SELECT CLIENTS${"<br>" + meta.about.clients.join("<br>") + "<br>"}</p>
     <p>WORK EXPERIENCE<br>

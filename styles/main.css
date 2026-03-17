@@ -70,6 +70,10 @@
             "header header header"
             "main   aside1 aside2";
         grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: 50vh 50vh;
+        margin-left: calc(100vw / 12);
+        margin-right: calc(100vw / 12);
+        height: 100vh;
     }
 }
 
