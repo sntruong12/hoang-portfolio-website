@@ -268,17 +268,17 @@ const renderAbout = () => {
     }
 
     const html = `
-    <h1>${meta.first + "<br>" + meta.last}</h1>
-    <p>${meta.about.description}</p>
-    <p>SELECT CLIENTS${"<br>" + meta.about.clients.join("<br>") + "<br>"}</p>
-    <p>WORK EXPERIENCE<br>
+    <h1 class="a-head">${meta.first + "<br>" + meta.last}</h1>
+    <p class="a-main">${meta.about.description}</p>
+    <p class="a-aside1">SELECT CLIENTS${"<br>" + meta.about.clients.join("<br>") + "<br>"}</p>
+    <p class="a-aside2">WORK EXPERIENCE<br>
     ${meta.about.experience.map(e => {
         return `${e.roleAndCmpy}<br>
                 ${e.timePeriod}<br>`
     })
             .join("")
         }
-    `
+    </p>`
     // set html
     aSection.innerHTML = html
 
@@ -321,19 +321,25 @@ const renderSelectedProject = (projectId) => {
     }).join("");
 
     const html = `
-        <p id="${HTMLIDs.selectedProjBackButton}">&larr; back</p>
-        <h1>${project.title}</h1>
-        ${picturesHtml}
-        ${!!project.agency ? "<p>agency " + project.agency + "</p>" : ""}
-        <p>client ${project.client}</p>
-        <p>project ${project.pType}</p>
-        <p>role ${project.role}</p>
-        <p>${project.description}</p>
-        <p>
-            <span id="${HTMLIDs.imageNav.prev}">&uarr;</span>
-            <span id="${HTMLIDs.imageNav.counter}">1</span>
-            <span id="${HTMLIDs.imageNav.next}">&darr;</span>
-        </p>
+        <p class="sp-back" id="${HTMLIDs.selectedProjBackButton}">&larr; back</p>
+        <div class="sp-content">
+            <h1>${project.title}</h1>
+            ${picturesHtml}
+        </div>
+        <div class="sp-info">
+            ${!!project.agency ? "<p>agency " + project.agency + "</p>" : ""}
+            <p>client ${project.client}</p>
+            <p>project ${project.pType}</p>
+            <p>role ${project.role}</p>
+            <p>${project.description}</p>
+        </div>
+        <div class="sp-page">
+            <p>
+                <span id="${HTMLIDs.imageNav.prev}">&uarr;</span>
+                <span id="${HTMLIDs.imageNav.counter}">1</span>
+                <span id="${HTMLIDs.imageNav.next}">&darr;</span>
+            </p>
+        </div>
     `;
 
     // set html
@@ -357,7 +363,7 @@ const renderCenteredProjectNumber = (projectID) => {
     }
 
     const html = `
-        <p>${pid}</p>
+        <p class="cp-number">${pid}</p>
     `
 
     ccpSection.innerHTML = html

@@ -1,8 +1,18 @@
 /* global css */
 
+/* css custom properties / variables */
+:root {
+    --one-column: calc(100vw / 12);
+}
+
 * {
     background-color: #000000;
     color: #FFFFFF;
+}
+
+/* Hide scrollbars */
+body {
+    overflow: hidden;
 }
 
 /* nav bar */
@@ -11,7 +21,7 @@
     overflow-x: hidden;
     position: fixed;
     transition: 0.5s;
-    width: calc(100vw / 12);
+    width: var(--one-column);
     z-index: 1;
 
     /* space child elements in nav bar evenly */
@@ -47,19 +57,19 @@
     grid-template-rows: auto auto;
 }
 
-.about> :nth-child(1) {
+.about>.a-head {
     grid-area: header;
 }
 
-.about> :nth-child(2) {
+.about>.a-main {
     grid-area: main;
 }
 
-.about> :nth-child(3) {
+.about>.a-aside1 {
     grid-area: aside1;
 }
 
-.about> :nth-child(4) {
+.about>.a-aside2 {
     grid-area: aside2;
 }
 
@@ -71,8 +81,8 @@
             "main   aside1 aside2";
         grid-template-columns: 2fr 1fr 1fr;
         grid-template-rows: 50vh 50vh;
-        margin-left: calc(100vw / 12);
-        margin-right: calc(100vw / 12);
+        margin-left: var(--one-column);
+        margin-right: var(--one-column);
         height: 100vh;
     }
 }
@@ -109,11 +119,6 @@
     scroll-snap-align: center;
 }
 
-/* hiding sections i.e. projects/selected projects/about */
-.section-hidden {
-    display: none;
-}
-
 /* position el in bottom right of the view */
 .current-centered-project {
     position: fixed;
@@ -123,8 +128,8 @@
     background: transparent;
 }
 
-.current-centered-project p {
-    font-size: calc(100vw / 12);
+.current-centered-project .cp-number {
+    font-size: var(--one-column);
     background: transparent;
 }
 
@@ -134,4 +139,51 @@
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* selected project layout */
+.selected-project .sp-back {
+    grid-area: back;
+}
+
+.selected-project .sp-content {
+    grid-area: content;
+}
+
+.selected-project .sp-info {
+    grid-area: info;
+}
+
+.selected-project .sp-page {
+    grid-area: page;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected-project .sp-page p {
+    text-align: center;
+}
+
+.selected-project .sp-page p span {
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .selected-project {
+        display: grid;
+        grid-template-columns: 1fr 10fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+            ".  back       page"
+            ".  content    page"
+            ".  info    page";
+        height: 100vh;
+    }
+}
+
+/* hiding sections i.e. projects/selected projects/about */
+/* keep at bottom of file */
+.section-hidden {
+    display: none;
 }
