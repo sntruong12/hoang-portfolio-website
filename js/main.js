@@ -345,6 +345,12 @@ const renderSelectedProject = (projectId) => {
     // set html
     spSection.innerHTML = html;
 
+    // set initial arrow states
+    const prevArrow = document.getElementById(HTMLIDs.imageNav.prev);
+    const nextArrow = document.getElementById(HTMLIDs.imageNav.next);
+    updateArrowState(prevArrow, false);
+    updateArrowState(nextArrow, state.totalImages > 1);
+
     // make visible
     showSections([spSection])
 
@@ -417,6 +423,30 @@ const shouldNotRender = (el) => {
     return false
 }
 
+const updateArrowState = (arrow, enabled) => {
+    arrow.style.opacity = enabled ? '1' : '0';
+    arrow.style.pointerEvents = enabled ? 'auto' : 'none';
+};
+
+const navigateImage = (direction) => {
+    const newIndex = state.currentImageIndex + direction;
+    if (newIndex < 0 || newIndex >= state.totalImages) return;
+
+    // swap images
+    spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = true;
+    state.currentImageIndex = newIndex;
+    spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = false;
+
+    // update counter
+    document.getElementById(HTMLIDs.imageNav.counter).textContent = state.currentImageIndex + 1;
+
+    // update arrow states
+    const prevArrow = document.getElementById(HTMLIDs.imageNav.prev);
+    const nextArrow = document.getElementById(HTMLIDs.imageNav.next);
+    updateArrowState(prevArrow, state.currentImageIndex > 0);
+    updateArrowState(nextArrow, state.currentImageIndex < state.totalImages - 1);
+};
+
 /*
     =====================
     INTERSECTION OBSERVER
@@ -488,29 +518,11 @@ spSection.addEventListener("click", (e) => {
 
     // previous image (up arrow)
     if (e.target.id === HTMLIDs.imageNav.prev) {
-        if (state.currentImageIndex > 0) {
-            // hide current image
-            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = true;
-            // update index
-            state.currentImageIndex--;
-            // show new image
-            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = false;
-            // update counter
-            document.getElementById(HTMLIDs.imageNav.counter).textContent = state.currentImageIndex + 1;
-        }
+        navigateImage(-1);
     }
 
     // next image (down arrow)
     if (e.target.id === HTMLIDs.imageNav.next) {
-        if (state.currentImageIndex < state.totalImages - 1) {
-            // hide current image
-            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = true;
-            // update index
-            state.currentImageIndex++;
-            // show new image
-            spSection.querySelector(`picture[data-index="${state.currentImageIndex}"]`).hidden = false;
-            // update counter
-            document.getElementById(HTMLIDs.imageNav.counter).textContent = state.currentImageIndex + 1;
-        }
+        navigateImage(1);
     }
 })
