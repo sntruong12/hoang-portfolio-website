@@ -130,6 +130,7 @@ body {
 
 .current-centered-project .cp-number {
     font-size: var(--one-column);
+    font-weight: 900;
     background: transparent;
 }
 
