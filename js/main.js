@@ -53,6 +53,10 @@ const HTMLIDs = {
     about: "about",
     selectedProj: "selected-project",
     centeredProj: "current-centered-project",
+    centeredProjTape: {
+        tens: "tape-tens",
+        ones: "tape-ones"
+    },
     selectedProjBackButton: "sp-back-button",
     imageNav: {
         prev: "sp-img-prev",
@@ -215,6 +219,8 @@ const sideNavOpenButton = document.getElementById(HTMLIDs.nav.open)
 const sideNavCloseButton = document.getElementById(HTMLIDs.nav.close)
 const sideNavItemWorks = document.getElementById(HTMLIDs.nav.works)
 const sideNavItemAbout = document.getElementById(HTMLIDs.nav.about)
+const tapeTens = document.getElementById(HTMLIDs.centeredProjTape.tens);
+const tapeOnes = document.getElementById(HTMLIDs.centeredProjTape.ones);
 
 /* 
     state for current centered project, 
@@ -360,20 +366,20 @@ const renderSelectedProject = (projectId) => {
     console.log("rendered selected project");
 }
 
-const renderCenteredProjectNumber = (projectID) => {
-    let pid = ""
-    if (projectID < 10) {
-        pid = `0${projectID}`
-    } else {
-        pid = projectID
-    }
+// const renderCenteredProjectNumber = (projectID) => {
+//     let pid = ""
+//     if (projectID < 10) {
+//         pid = `0${projectID}`
+//     } else {
+//         pid = projectID
+//     }
 
-    const html = `
-        <p class="cp-number">${pid}</p>
-    `
+//     const html = `
+//         <p>${pid}</p>
+//     `
 
-    ccpSection.innerHTML = html
-}
+//     ccpSection.innerHTML = html
+// }
 
 const openNav = () => {
     sideNav.style.width = "auto";
@@ -453,12 +459,30 @@ const navigateImage = (direction) => {
     =====================
 */
 
+// update the odometer tapes aka the current centered project number
+function updateOdometer(number) {
+    // Ensure the number is formatted as a 2-digit string
+    const paddedNumber = number.toString().padStart(2, '0');
+
+    // Extract the individual digits
+    const tensDigit = parseInt(paddedNumber[0], 10);
+    const onesDigit = parseInt(paddedNumber[1], 10);
+
+    // Subtract the digit from 9 to find its new position
+    const tensPosition = (9 - tensDigit) * -10;
+    const onesPosition = (9 - onesDigit) * -10;
+
+    // Apply the translation
+    tapeTens.style.transform = `translateY(${tensPosition}%)`;
+    tapeOnes.style.transform = `translateY(${onesPosition}%)`;
+}
+
 // observer to detect when a project is centered in the viewport
 const centeredProjectObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const projectId = parseInt(entry.target.id.replace("project-", ""));
-            renderCenteredProjectNumber(projectId);
+            updateOdometer(projectId);
         }
     });
 }, {

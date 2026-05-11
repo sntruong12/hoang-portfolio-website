@@ -126,12 +126,23 @@ body {
     right: 0;
     z-index: 1;
     background: transparent;
+    display: flex;
 }
 
-.current-centered-project .cp-number {
+.digit-window {
+    /* must match the font-size for .digit-tape */
+    height: var(--one-column);
+    overflow: hidden;
+    text-align: center;
+}
+
+.digit-tape {
     font-size: var(--one-column);
     font-weight: 900;
     background: transparent;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Adds a nice mechanical ease */
+    transform: translateY(0);
 }
 
 /* center eye logo */
