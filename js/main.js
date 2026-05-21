@@ -247,9 +247,9 @@ const renderProjects = () => {
     const html = projects.map((project) => `
         <picture id="project-${project.id}">
             <!-- Mobile Image -->
-            <source media="(max-width: 767px)" srcset="./media/project-${project.id}/featured.svg">
+            <source srcset="./media/project-${project.id}/featured.svg">
             <!-- Desktop Image -->
-            <source media="(min-width: 768px)" srcset="./media/project-${project.id}/featured.svg">
+            <source srcset="./media/project-${project.id}/featured.svg">
             <!-- Fallback Image -->
             <img aria-hidden="true" loading="lazy" decoding="async" src="./media/project-${project.id}/featured.svg" alt="${project.title}">
         </picture>
@@ -365,21 +365,6 @@ const renderSelectedProject = (projectId) => {
 
     console.log("rendered selected project");
 }
-
-// const renderCenteredProjectNumber = (projectID) => {
-//     let pid = ""
-//     if (projectID < 10) {
-//         pid = `0${projectID}`
-//     } else {
-//         pid = projectID
-//     }
-
-//     const html = `
-//         <p>${pid}</p>
-//     `
-
-//     ccpSection.innerHTML = html
-// }
 
 const openNav = () => {
     sideNav.style.width = "auto";
