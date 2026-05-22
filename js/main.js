@@ -453,9 +453,8 @@ function updateOdometer(number) {
     const tensDigit = parseInt(paddedNumber[0], 10);
     const onesDigit = parseInt(paddedNumber[1], 10);
 
-    // Subtract the digit from 9 to find its new position
-    const tensPosition = (9 - tensDigit) * -10;
-    const onesPosition = (9 - onesDigit) * -10;
+    const tensPosition = tensDigit * -10;
+    const onesPosition = onesDigit * -10;
 
     // Apply the translation
     tapeTens.style.transform = `translateY(${tensPosition}%)`;

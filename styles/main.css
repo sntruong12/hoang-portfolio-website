@@ -143,8 +143,6 @@ body {
     height: 10vh;
     background: transparent;
     overflow: hidden;
-    text-align: center;
-    width: 50%;
 }
 
 .digit-tape {
