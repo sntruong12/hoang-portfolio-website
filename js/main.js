@@ -215,8 +215,8 @@ const aSection = document.getElementById(HTMLIDs.about)
 const spSection = document.getElementById(HTMLIDs.selectedProj)
 const ccpSection = document.getElementById(HTMLIDs.centeredProj)
 const sideNav = document.getElementById(HTMLIDs.nav.id)
-const sideNavOpenButton = document.getElementById(HTMLIDs.nav.open)
-const sideNavCloseButton = document.getElementById(HTMLIDs.nav.close)
+// const sideNavOpenButton = document.getElementById(HTMLIDs.nav.open)
+// const sideNavCloseButton = document.getElementById(HTMLIDs.nav.close)
 const sideNavItemWorks = document.getElementById(HTMLIDs.nav.works)
 const sideNavItemAbout = document.getElementById(HTMLIDs.nav.about)
 const tapeTens = document.getElementById(HTMLIDs.centeredProjTape.tens);
@@ -504,8 +504,8 @@ sideNavItemWorks.addEventListener("click", () => {
     observeProjects();
 })
 sideNavItemAbout.addEventListener("click", renderAbout)
-sideNavCloseButton.addEventListener("click", closeNav)
-sideNavOpenButton.addEventListener("click", openNav)
+// sideNavCloseButton.addEventListener("click", closeNav)
+// sideNavOpenButton.addEventListener("click", openNav)
 
 // render selected project
 pSection.addEventListener("click", (e) => {
