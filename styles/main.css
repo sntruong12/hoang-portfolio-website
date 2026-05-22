@@ -156,8 +156,9 @@ body {
 
 .current-centered-project .digit-window .digit-tape div {
     background: transparent;
-    font-size: 10vh;
+    font-size: min(10vh, 4vw);
     font-weight: 900;
+    line-height: 10vh;
 }
 
 /* center eye logo */
